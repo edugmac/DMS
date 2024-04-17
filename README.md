@@ -5,11 +5,11 @@ OP-TEE é um "Trusted Execution Environment" (TEE) focado em garantir segurança
 
 # Especificações de hardware
 Durante as nossas instalações, foram usados dois dispositivos diferentes, sendo um notebook rodando linux Ubuntu e o Raspberry Pi, com as especificações citadas abaixo. 
-###Notebook:
+### Notebook:
 Processador Intel(R) Core(TM) i3-7020U
 Linux Ubuntu versão 22.04.4 LTS
 
-###Raspberry Pi:
+### Raspberry Pi:
 Raspberry Pi 3 B+
 Processador com arquitetura ARMv8
 Cartão SD Sandisk 16 GB
