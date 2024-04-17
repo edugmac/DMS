@@ -1,7 +1,18 @@
 ```ruby
 ```
-# DMS
-Security of distributed measurement systems
+# OP-TEE para Raspberry Pi e Qemu
+OP-TEE é um "Trusted Execution Environment" (TEE) focado em garantir segurança para dispositivos. No nosso caso, estaremos usando ele para proteção de um Dispositivo de medição distribuida (ou DMS, em inglês). O OP-TEE divide o processador em dois "mundos". Apenas o mundo comum é liberado para acesso do usuário, permitindo apenas execução dos scripts e impedindo qualquer visualização e/ou alteração dos códigos e dados. Para fazer os processos descritos abaixo, recomendamos utilizar um computador com um linux instalado, de preferência o Ubuntu. **Não** recomendamos o uso de máquinas virtuais, pois além do processo de virtualização deixar partes da instalação mais lentas, também pode afetar alguns procedimentos.
+
+# Especificações de hardware
+Durante as nossas instalações, foram usados dois dispositivos diferentes, sendo um notebook rodando linux Ubuntu e o Raspberry Pi, com as especificações citadas abaixo. 
+###Notebook:
+Processador Intel(R) Core(TM) i3-7020U
+Linux Ubuntu versão 22.04.4 LTS
+
+###Raspberry Pi:
+Raspberry Pi 3 B+
+Processador com arquitetura ARMv8
+Cartão SD Sandisk 16 GB
 
 # Preparando a máquina
 A instalação pode ser feita tanto para simulação no Qemu, quanto para instalação direta em um raspberry pi
