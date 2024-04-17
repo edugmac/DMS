@@ -34,7 +34,7 @@ sudo apt install repo
 Próximo passo é criar uma pasta para armazenar os arquivos do OP-TEE. A pasta pode ser criada no diretório de preferência do usuário, mas deve-se ter em mente a localização dela para passos futuros.
 Recomendamos a criação da pasta no diretório raiz do linux:
 ```ruby
-mkdir optee     #Não há necessidade do nome ser exatamente esse, podendo ser customizado pelo usuário
+mkdir optee     #O nome da pasta pode ser customizado pelo usuário
 cd optee 
 ```
 Atenção: Esse diretório só deve ser usado para uma das versões do OP-TEE. Caso queira usar ambas as duas, crie outra pasta separada da primeira.
@@ -52,3 +52,14 @@ Após a inicialização do repositório na pasta, basta sincronizar:
 ```ruby
 repo sync --no-clone-bundle
 ```
+Terminada a sincronização, a simulação já pode ser iniciada com o comando `make run`. Três terminais serão abertos: Um para o mundo comum, um para o mundo seguro e um para controle da emulação. No terminal da emulação, digite `c` e a simulação irá iniciar. Para confirmar o funcionamento, pode-se fazer login como "root" e usar o comando `xtest`, que verifica se toda a instalação ocorreu como previsto.
+
+# Instalação para o Raspberry Pi
+O procedimento é similar ao da instalação para emulação, porém possui algumas diferenças nos passos e alguns procedimentos extras.
+
+Para começar, crie um outro repositório:
+```ruby
+mkdir optee_rasp
+cd optee_rasp
+```
+
