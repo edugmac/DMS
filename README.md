@@ -20,8 +20,8 @@ Cartão SD Sandisk 16 GB
 
 # Preparando a máquina
 A instalação pode ser feita tanto para simulação no Qemu, quanto para instalação direta em um raspberry pi
-[!NOTE]
-Alguns modelos de raspberry podem não ser compatíveis com o sistema operacional do OP-TEE. Para mais informações, consultar o [site oficial](https://optee.readthedocs.io/en/latest/building/devices/rpi3.html#what-versions-of-raspberry-pi-will-work).
+>[!NOTE]
+>Alguns modelos de raspberry podem não ser compatíveis com o sistema operacional do OP-TEE. Para mais informações, consultar o [site oficial](https://optee.readthedocs.io/en/latest/building/devices/rpi3.html#what-versions-of-raspberry-pi-will-work).
 
 Antes de iniciar a instalação, é necessário instalar os seguintes pacotes:
 ```ruby
