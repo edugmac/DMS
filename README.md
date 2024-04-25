@@ -1,5 +1,5 @@
 # Smart sensor para sistemas distribuídos de medição: experimento do frenômetro
-Esse repositório contém a implementação do projeto de um sensor inteligente (smart sensor) seguro para aplição em sistemas distribuídos de medição. A implementação é parte da tese de doutorado do MEng. Eduardo Gonçalves Machado e da cooperação entre o Instituto Nacional de Metrologia, Qualidade e Tecnologia (Inmetro) e a empresa Auge Tecnologia e Produções Ltda (Auge Tech).
+Esse repositório contém a implementação do projeto de um sensor inteligente (smart sensor) seguro para aplição em sistemas distribuídos de medição (DMS, do inglês, Distributed Measuring Systems). A implementação é parte da tese de doutorado do MEng. Eduardo Gonçalves Machado e da cooperação entre o Instituto Nacional de Metrologia, Qualidade e Tecnologia (Inmetro) e a empresa Auge Tecnologia e Produções Ltda (Auge Tech).
 
 Grupo de pesquisa:
 * Eduardo Gonçalves Machado (egmachado@colaborador.inmetro.gov.br)
@@ -10,9 +10,12 @@ Grupo de pesquisa:
 Orientadores:
 * Wilson de Souza Melo Junior (wsjunior@inmetro.gov.br)
 * Igor Leandro Vieira (augetechrj@gmail.com)
-  
-# Breve apresentação sobre sistemas distribuídos de medição e frenômetros
 
+# Sobre o projeto
+Desenvolvemos um sistema seguro para medir a capacidade de frenagem de veículos. Esse sistema visa garantir a integridade dos resultados de um tipo de DMS denominado frenômetro. A arquitura está dividida em três etapas de medição: sensoriamento, concretização da medição e armazenamento. Na primeira etapa os sinais da medição são criptografados em um kernel seguro no ambiente de execução confiável do processador (TEE, do inglês, Trust Enviroment Execution). A medição criptografada é enviada para uma rede blockchain, onde smart contracts realizam os cálculos necessários para obter o resultado de medição. Esse resultado é então armazenado no ledger do blockchain, não podendo ser alterada. A seguir é apresentada a implementação do ambiente seguro usando OP-TEE (tanto um protótipo com Raspberry Pi, como virtualização com Qemu). Na sequência, está descrita a implementação da rede blockchain em HyperLedger Fabric e do smart contract desenvolvido para concretizar as medições do frenômetro.
+
+# Financiamento
+Este trabalho foi parcilamente financiado por pela Fundação Carlos Chagas Filho de Amparo à Pesquisa do Rio de Janeiro (FAPERJ), bolsas E-26/290.124/2021, E-26/205.266/2022, and E-26/260.179/2023 e pelo Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq), bolsa 151399/2023-9.
 
 # OP-TEE para Raspberry Pi e Qemu
 OP-TEE é um "Trusted Execution Environment" (TEE) focado em garantir segurança para dispositivos. No nosso caso, estaremos usando ele para proteção de um Dispositivo de medição distribuida (ou DMS, em inglês). O OP-TEE divide o processador em dois "mundos". Apenas o mundo comum é liberado para acesso do usuário, permitindo apenas execução dos scripts e impedindo qualquer visualização e/ou alteração dos códigos e dados. Para fazer os processos descritos abaixo.
