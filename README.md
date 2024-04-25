@@ -22,11 +22,6 @@ As publicações a seguir estão relacionadas a este projeto.
 # Financiamento
 Este trabalho foi parcilamente financiado por pela Fundação Carlos Chagas Filho de Amparo à Pesquisa do Rio de Janeiro (FAPERJ), bolsas E-26/290.124/2021, E-26/205.266/2022, and E-26/260.179/2023 e pelo Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq), bolsa 151399/2023-9.
 
-# OP-TEE para Raspberry Pi e Qemu
-OP-TEE é um "Trusted Execution Environment" (TEE) focado em garantir segurança para dispositivos. No nosso caso, estaremos usando ele para proteção de um Dispositivo de medição distribuida (ou DMS, em inglês). O OP-TEE divide o processador em dois "mundos". Apenas o mundo comum é liberado para acesso do usuário, permitindo apenas execução dos scripts e impedindo qualquer visualização e/ou alteração dos códigos e dados. Para fazer os processos descritos abaixo.
->[!TIP]
->Recomendamos utilizar um computador com um linux instalado, de preferência o Ubuntu. Não recomendamos o uso de máquinas virtuais, pois além do processo de virtualização deixar partes da instalação mais lentas, também pode afetar alguns procedimentos.
-
 # Especificações de hardware
 Durante as nossas instalações, foram usados dois dispositivos diferentes, sendo um notebook rodando linux Ubuntu e o Raspberry Pi, com as especificações citadas abaixo:
 ### Notebook:
@@ -38,7 +33,12 @@ Raspberry Pi 3 B+<br>
 Processador com arquitetura ARMv8<br>
 Cartão SD Sandisk 16 GB
 
-# Preparando a máquina
+# OP-TEE para Raspberry Pi e Qemu
+OP-TEE é um "Trusted Execution Environment" (TEE) focado em garantir segurança para dispositivos. No nosso caso, estaremos usando ele para proteção de um Dispositivo de medição distribuida (ou DMS, em inglês). O OP-TEE divide o processador em dois "mundos". Apenas o mundo comum é liberado para acesso do usuário, permitindo apenas execução dos scripts e impedindo qualquer visualização e/ou alteração dos códigos e dados. Para fazer os processos descritos abaixo.
+>[!TIP]
+>Recomendamos utilizar um computador com um linux instalado, de preferência o Ubuntu. Não recomendamos o uso de máquinas virtuais, pois além do processo de virtualização deixar partes da instalação mais lentas, também pode afetar alguns procedimentos.
+
+## Preparando a máquina
 A instalação pode ser feita tanto para simulação no Qemu, quanto para instalação direta em um raspberry pi
 >[!NOTE]
 >Alguns modelos de raspberry podem não ser compatíveis com o sistema operacional do OP-TEE. Para mais informações, consultar o [site oficial](https://optee.readthedocs.io/en/latest/building/devices/rpi3.html#what-versions-of-raspberry-pi-will-work).
@@ -62,7 +62,7 @@ mkdir optee     #O nome da pasta pode ser customizado pelo usuário
 cd optee 
 ```
 Atenção: Esse diretório só deve ser usado para uma das versões do OP-TEE. Caso queira usar ambas as duas, crie outra pasta separada da primeira.
-# Instalação e emulação pelo QEMU
+## Instalação e emulação pelo QEMU
 A simulação do OP-TEE é muito útil, pois pode ser usada tanto para testes de instalação, quanto para testes de scripts e trusted applications. Para fazer essa simulação, deve-se primeiramente iniciar o repositório do OP-TEE baseado para o QEMU:
 ```ruby
 repo init -u https://github.com/OP-TEE/manifest.git -m default.xml -b 3.19.0
@@ -78,7 +78,7 @@ repo sync --no-clone-bundle
 ```
 Terminada a sincronização, a simulação já pode ser iniciada com o comando `make run`. Três terminais serão abertos: Um para o mundo comum, um para o mundo seguro e um para controle da emulação. No terminal da emulação, digite `c` e a simulação irá iniciar. Para confirmar o funcionamento, pode-se fazer login como "root" e usar o comando `xtest`, que verifica se toda a instalação ocorreu como previsto.
 
-# Instalação para o Raspberry Pi
+## Instalação para o Raspberry Pi
 O procedimento é similar ao da instalação para emulação, porém possui algumas diferenças nos passos e alguns procedimentos extras.
 
 Para começar, crie um outro repositório:
