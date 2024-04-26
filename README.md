@@ -16,8 +16,9 @@ Desenvolvemos um sistema seguro para medir a capacidade de frenagem de veículos
 
 ### Publicações relacionadas
 As publicações a seguir estão relacionadas a este projeto.
-[Blockchain-based Architecture to Enhance Security in Distributed Measurement Systems] (10.1109/CSDE59766.2023.10487656)
-[Blockchain network to conformity assessment bodies] (https://metrologia2023.org.br/?page_id=6627)
+[Blockchain-based Architecture to Enhance Security in Distributed Measurement Systems](10.1109/CSDE59766.2023.10487656)
+
+[Blockchain network to conformity assessment bodies](https://metrologia2023.org.br/?page_id=6627)
 
 ### Financiamento
 Este trabalho foi parcilamente financiado por pela Fundação Carlos Chagas Filho de Amparo à Pesquisa do Rio de Janeiro (FAPERJ), bolsas E-26/290.124/2021, E-26/205.266/2022, and E-26/260.179/2023 e pelo Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq), bolsa 151399/2023-9.
@@ -34,7 +35,7 @@ Processador com arquitetura ARMv8<br>
 Cartão SD Sandisk 16 GB
 
 # OP-TEE para Raspberry Pi e Qemu
-OP-TEE é um "Trusted Execution Environment" (TEE) focado em garantir segurança para dispositivos. No nosso caso, estaremos usando ele para proteção de um Dispositivo de medição distribuida (ou DMS, em inglês). O OP-TEE divide o processador em dois "mundos". Apenas o mundo comum é liberado para acesso do usuário, permitindo apenas execução dos scripts e impedindo qualquer visualização e/ou alteração dos códigos e dados. Para fazer os processos descritos abaixo.
+OP-TEE é um ambiente de execução confiável (TEE, do inglês, Trusted Execution Environment) focado em garantir segurança para dispositivos. O OP-TEE divide o processador em dois kernels (mundo real e mundo seguro). Apenas o mundo comum é liberado para acesso do usuário, permitindo apenas execução dos scripts e impedindo qualquer visualização e/ou alteração dos códigos e dados. Para fazer os processos descritos abaixo.
 >[!TIP]
 >Recomendamos utilizar um computador com um linux instalado, de preferência o Ubuntu. Não recomendamos o uso de máquinas virtuais, pois além do processo de virtualização deixar partes da instalação mais lentas, também pode afetar alguns procedimentos.
 
