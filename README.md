@@ -109,9 +109,58 @@ Após a sincronização, repita os passos 2 ao 4 mencionados anteriormente. Quan
 make -j `nproc`
 ```
 ### Instalação na memória do Raspberry
-A seguir, iremos particionar o cartão SD para colocar nele os arquivos do OP-TEE. Para mais informações, use o comando `make img-help`. 
+A seguir, iremos particionar o cartão SD para colocar nele os arquivos do OP-TEE. Para mais informações, use o comando `make img-help`. Você deverá ver as instruções como abaixo:
+```console
+$ fdisk /dev/sdx   # where sdx is the name of your sd-card
+   > p             # prints partition table
+   > d             # repeat until all partitions are deleted
+   > n             # create a new partition
+   > p             # create primary
+   > 1             # make it the first partition
+   > <enter>       # use the default sector
+   > +64M          # create a boot partition with 64MB of space
+   > n             # create rootfs partition
+   > p
+   > 2
+   > <enter>
+   > <enter>       # fill the remaining disk, adjust size to fit your needs
+   > t             # change partition type
+   > 1             # select first partition
+   > e             # use type 'e' (FAT16)
+   > a             # make partition bootable
+   > 1             # select first partition
+   > p             # double check everything looks right
+   > w             # write partition table to disk.
+
+run the following as root
+   $ mkfs.vfat -F16 -n BOOT /dev/sdx1
+   $ mkdir -p /media/boot
+   $ mount /dev/sdx1 /media/boot
+   $ cd /media
+   $ gunzip -cd /location/of/optee_rpi3/build/../out-br/images/rootfs.cpio.gz | sudo cpio -idmv "boot/*"
+   $ umount boot
+
+run the following as root
+   $ mkfs.ext4 -L rootfs /dev/sdx2
+   $ mkdir -p /media/rootfs
+   $ mount /dev/sdx2 /media/rootfs
+   $ cd rootfs
+   $ gunzip -cd /location/of/optee_rpi3/build/../out-br/images/rootfs.cpio.gz | sudo cpio -idmv
+   $ rm -rf /media/rootfs/boot/*
+   $ cd .. && umount rootfs
+```
+>[!TIP]
+>Execute o comando no seu dispositivo, pois ele modifica automaticamente alguns comandos relacionados à localização da pasta de instalação do OP-TEE, facilitando o processo.
+
+Plugue o cartão SD no seu dispositivo. Idealmente, formate ele antes de executar os próximos passos.</br>
+Primeiramente, identifique o nome do cartão SD. Você pode fazer isso usando o comando `lsblk`. Isso exibirá os dispositivos de bloco plugados na máquina. Procure pelo dispositivo que corresponde à memória do seu cartão de memória. O nome deve ser algo como `sdx` ou `mmcblkx`, substituindo o `x` por algum número.
+
 >[!CAUTION]
->Execute os passos abaixo com cautela, pois caso algo seja feito incorretamente, toda a instalação a partir daqui precisará ser re-feita
+>Execute os passos abaixo com cautela, pois caso algo seja feito incorretamente, toda a instalação a partir daqui precisará ser re-feita.
+
+Repita o processo de particionamento que está indicado no img-help. Em todos os comandos, troque o nome `sdx` pelo nome do cartão SD que foi identificado. Para executá-los, inicie o modo root no terminal, digitando `sudo su`.</br>
+Após particionar o cartão SD, os próximos passos são simples, necessitando apenas repetir os comandos mencionados no img-help. Como mencionado anteriormente, ele modificará os comandos para serem compativeis com a instalação do OP-TEE no seu sistema, necessitando alterar apenas o nome do cartão SD nos comandos correspondentes.</br>
+Por fim, remova o cartão do computador e plugue no Raspberry Pi. Será necessário conectar um monitor por um cabo HDMI, a fonte e um teclado para poder operar o dispositivo. Para fins de teste, excecute o comando `xtest` para verificar se toda a instalação foi feita corretamente.
 
 
 
