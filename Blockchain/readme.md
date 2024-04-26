@@ -47,48 +47,46 @@ A mesma ferramenta pode ser usada para parar os contêineres, caso seja necessá
 ./start.sh down
 ```
 
-### 4. Create the Fabric channel and join the peers
+### 4. Criando o channel no Fabric e reunindo os peers
 
-The next step consists of creating a channel (in practice, the ledger among the peers) and joining all the active peers on it. It is important to remember that we create a channel only once, in **host_aws**. Thus the first organization to start its peers *MUST* create the channel. The following organizations will only fetch for an existing channel and join on it. The script [start.sh](start.sh) implements both situations.
+O próximo passo consiste em criar um channel (na prática, o ledger que reúne os peers) e unir todos os peers ativos a ele. É importante lembrar que criamos um canal apenas uma vez, no **host_aws**. Portanto, a primeira organização a iniciar seus pares *DEVE* criar o canal. As organizações subsequentes apenas buscarão por um canal existente e se juntarão a ele. O script [start.sh](start.sh) implementa ambas as situações.
 
 ```console
 ./start.sh createChannel
 ```
 
-If you succeed in coming so far, the Hyperledger Fabric shall be running in your server, with an instance of your organization network profile. You can see information from the containers by using the following commands:
+Se você conseguiu chegar até aqui, o Hyperledger Fabric estará em execução em seu servidor, com uma instância do perfil de rede de sua organização. Você pode visualizar informações dos contêineres utilizando os seguintes comandos:
 
 ```console
 docker ps
 docker stats
 ```
 
-### 5. Deploy a chaincode
+### 5. Implantando um chaincode
 
-Chaincodes are smart contracts in Fabric. In this document, we assume you already know how to implement and deploy a chaincode. If it is not your case, there is a [nice tutorial](https://hyperledger-fabric.readthedocs.io/en/release-2.2/chaincode4ade.html) covering a lot of information about this issue. We strongly recommend you to check it before continuing.
+Os chaincodes são contratos inteligentes no Fabric. Neste documento, presumimos que você já saiba como implantar um chaincode. Se esse não for o seu caso, há um [ótimo tutorial](https://hyperledger-fabric.readthedocs.io/en/release-2.2/chaincode4ade.html) que abrange muitas informações sobre este assunto. Recomendamos fortemente que você o consulte antes de prosseguir.
 
-A copy of the chaincode source is available [here](nesa/nesa.go).
+Nossos perfis de rede blockchain incluem, para cada organização, um contêiner cliente *cli*, que efetivamente gerencia os chaincodes. O *cli* é necessário para compilar o chaincode e instalá-lo em um peer endossador. Também é útil para testar chaincodes, fornecendo uma interface para executar o comando peer chaincode.
 
-Our blockchain network profiles include, for each organization, a client container *cli*, which effectively manages chaincodes. The *cli* is necessary to compile the chaincode and install it in an endorser peer. It is also handy to test chaincodes. It provides an interface to execute the command *peer chaincode*. 
-
-By default, we associate *cli* with the *peer0* of the respective organization. You also can replicate its configuration to create additional client containers. We provide the script **start.sh** that encapsulates the use of a client container and simplifies the chaincode life cycle management. The script has the following syntax:
+Por padrão, associamos *cli* ao *peer0* da respectiva organização. Você também pode replicar sua configuração para criar contêineres de cliente adicionais. Fornecemos o script start.sh que encapsula o uso de um contêiner cliente e simplifica o gerenciamento do ciclo de vida do chaincode. O script tem a seguinte sintaxe:
 
 ```console
 ./start.sh deployCC -ccn <chaincode name> -ccp <chaincode path> -ccl <chaincode language>
 ```
 
-A example of this command is:
+Um exemplo desse comando é:
 
 ```console
 ./start.sh deployCC -ccn braketester -ccp braketester -ccl go
 ```
 
-This command will do all you need to invoke the chaincode.
+Esse comando fará tudo o que você precisa para invocar um chaincode.
 
-obs: Deploy first the chaincode in **host2_aws** and after in **host_aws**.
+obs: Implante primeiro o chaincode em **host2_aws** e depois em **host_aws**.
 
-### 6. Test a chaincode
+### 6. Testando um chaincode
 
-You can test the chaincode using this command.
+Você pode testar um chaincode usando o seguinte comando.
 
 ```console
 ./start.sh testCC -c <channel-name> -ccn <chaincode name> -args <arguments>
