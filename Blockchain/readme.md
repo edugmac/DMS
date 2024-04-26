@@ -1,4 +1,4 @@
-# Blockchain e Smart Contracts
+# Blockchain e Contratos Inteligentes
 
 Nós usamos o [Hyperledger Fabric 2.2 LTS](https://hyperledger-fabric.readthedocs.io/en/release-2.2/) como nossa plataforma Blockchain. Nós configuramos uma distribuição global que suporta a execução de chaincode.
 
@@ -8,40 +8,40 @@ Se você não está acostumado com o Hyperledger Fabric, recomendamos fortemente
 
 ### 1. Preparando a máquina.
 
-You need to install the **Hyperledger Fabric 2.2 LTS** basic software and [dependencies](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html). We try to make things simpler by providing a shell script that installs all these stuff in a clean **Ubuntu 20.04 LTS** system. If you are using this distribution, our script works for you. If you have a different distribution, you can still try the script or customize it to work in your system.
+Para realizar a instalação do Hyperledger Fabric 2.2 LTS e suas [dependências](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html, é necessário seguir alguns passos específicos. Com o objetivo de simplificar o processo, disponibilizamos um script que automatiza a instalação de todos os componentes necessários em um sistema **Ubuntu 20.04 LTS** limpo. Caso você esteja utilizando essa distribuição, nosso script é adequado para o seu ambiente. Se estiver utilizando uma distribuição diferente, ainda é possível tentar executar o script ou personalizá-lo para funcionar em seu sistema.
 
-Execute the **installation script**, localizated in prerequirements folder, in both host.
+Para iniciar a instalação, é necessário executar o script de instalação localizado na pasta de pré-requisitos em ambos os hosts. Você deve executar o seguinte comando no terminal do Linux:
 
 ```console
 ./prerequirements/installFabric.sh
 ```
 
-**OBSERVATION**: You do not need to run the script as *sudo*. The script will automatically ask for your *sudo* password when necessary. That is important to keep the docker containers running with your working user account. You will need to reboot your machine after execute this script.
+**OBSERVAÇÃO**: Não é necessário executar o script como *sudo*. O script solicitará automaticamente sua senha de *sudo* quando necessário. Isso é importante para manter os contêineres Docker em execução com sua conta de usuário em uso. Será necessário reiniciar sua máquina após executar este script.
 
-### 2. Generate the MSP artifacts
+### 2. Gerando os artefatos MSP
 
-The MSP artifacts include all the cryptographic stuff necessary to identify the peers of a Fabric network. They are basically asymmetric cryptographic key pairs and self-signed digital certificates. Currently, we are working on security policy to generate and distribute the MSP artifacts among organizations. As a workaround, only one organization must execute this procedure and replicate the MSP artifacts for the others. 
+Os artefatos MSP incluem todo o material criptográfico necessário para identificar os peers de uma rede Fabric. Basicamente, eles consistem em pares de chaves criptográficas assimétricas e certificados digitais autoassinados. Apenas uma organização precisa executar este procedimento e replicar os artefatos MSP para as outras.
 
-Execute the script to generate MSP artifacts in one host and copy to the other:
+Execute o script para gerar os artefatos MSP no host designado. Você pode utilizar o seguinte comando:
 
 ```console
 ./start.sh generateMSP
 ```
 
-This script uses **configtx.yaml** and **crypto-config-nmi.yaml** to create the MSP certificates in the folder **crypto-config**. It also generates the genesis block file *genesis.block*. Notice that this script depends on the tools installed together with Fabric. The script *installFabric.sh* executed previously is expected to modify your $PATH variable and enable the Fabric tools' direct execution. If this does not happen, try to fix the $PATH manually. The tools usually are in the folder /$HOME/fabric-samples/bin.
+Este script utiliza os arquivos **configtx.yaml** e **crypto-config-nmi.yaml** para criar os certificados MSP na pasta **crypto-config**. Ele também gera o arquivo do bloco de gênese genesis.block. Observe que este script depende das ferramentas instaladas juntamente com o Fabric. O script installFabric.sh, executado anteriormente, deve modificar a variável $PATH e habilitar a execução direta das ferramentas do Fabric. Se isso não ocorrer, tente corrigir o $PATH manualmente. As ferramentas geralmente estão na pasta /$HOME/fabric-samples/bin.
 
-### 3. Manage the docker containers
+### 3. Gerenciando os contêineres do docker
 
-We use the **docker-compose** tool to manage the docker containers in our network. It reads the peer-*.yaml files and creates/starts/stops all the containers or a specific group of containers. You can find more details in the [Docker Compose Documents](https://docs.docker.com/compose/).
+Utilizamos a ferramenta **docker-compose** para gerenciar os contêineres do docker em nossa rede. Essa ferramenta lê os arquivos peer-*.yaml e cria/inicia/interrompe todos os contêineres ou um grupo específico de contêineres. Você pode encontrar mais detalhes na Documentação do [Docker Compose Documents](https://docs.docker.com/compose/).
 
 
-In both hosts, you must use the following command to start the network:
+Em ambos os hosts, você deve utilizar o seguinte comando para iniciar a rede:
 
 ```console
 ./start.sh up
 ```
 
-The same tool can be used to stop the containers, just if you need to stop the blockchain network for any reason. In a similar manner as done before, use the following command to stop all the containers:
+A mesma ferramenta pode ser usada para parar os contêineres, caso seja necessário interromper a rede blockchain por qualquer motivo. De maneira semelhante ao feito anteriormente, utilize o seguinte comando para parar todos os contêineres:
 
 ```console
 ./start.sh down
