@@ -16,8 +16,7 @@ Desenvolvemos um sistema seguro para medir a capacidade de frenagem de veículos
 
 ### Publicações relacionadas
 As publicações a seguir estão relacionadas a este projeto.
-[Blockchain-based Architecture to Enhance Security in Distributed Measurement Systems](10.1109/CSDE59766.2023.10487656)
-
+[Blockchain-based Architecture to Enhance Security in Distributed Measurement Systems](10.1109/CSDE59766.2023.10487656) <br>
 [Blockchain network to conformity assessment bodies](https://metrologia2023.org.br/?page_id=6627)
 
 ### Financiamento
