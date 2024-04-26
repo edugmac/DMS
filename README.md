@@ -12,7 +12,7 @@ Orientadores:
 * Igor Leandro Vieira (augetechrj@gmail.com)
 
 ### Sobre o projeto
-Desenvolvemos um sistema seguro para medir a capacidade de frenagem de veículos. Esse sistema visa garantir a integridade dos resultados de um tipo de DMS denominado frenômetro. A arquitura está dividida em três etapas de medição: sensoriamento, concretização da medição e armazenamento. Na primeira etapa os sinais da medição são criptografados em um kernel seguro no ambiente de execução confiável do processador (TEE, do inglês, Trust Enviroment Execution). A medição criptografada é enviada para uma rede blockchain, onde smart contracts realizam os cálculos necessários para obter o resultado de medição. Esse resultado é então armazenado no ledger do blockchain, não podendo ser alterada. A seguir é apresentada a implementação do ambiente seguro usando OP-TEE (tanto um protótipo com Raspberry Pi, como virtualização com Qemu). Na sequência, está descrita a implementação da rede blockchain em HyperLedger Fabric e do smart contract desenvolvido para concretizar as medições do frenômetro.
+Desenvolvemos um sistema seguro para medir a capacidade de frenagem de veículos. Esse sistema visa garantir a integridade dos resultados de um tipo de DMS denominado frenômetro. A arquitetura está dividida em três etapas de medição: sensoriamento, concretização da medição e armazenamento. Na primeira etapa os sinais da medição são criptografados em um kernel seguro no ambiente de execução confiável do processador (TEE, do inglês, Trust Enviroment Execution). A medição criptografada é enviada para uma rede blockchain, onde smart contracts realizam os cálculos necessários para obter o resultado de medição. Esse resultado é então armazenado no ledger do blockchain, não podendo ser alterada. A seguir é apresentada a implementação do ambiente seguro usando OP-TEE (tanto um protótipo com Raspberry Pi, como virtualização com Qemu). Na sequência, está descrita a implementação da rede blockchain em HyperLedger Fabric e do smart contract desenvolvido para concretizar as medições do frenômetro.
 
 ### Publicações relacionadas
 As publicações a seguir estão relacionadas a este projeto.
@@ -39,69 +39,91 @@ OP-TEE é um ambiente de execução confiável (TEE, do inglês, Trusted Executi
 >[!TIP]
 >Recomendamos utilizar um computador com um linux instalado, de preferência o Ubuntu. Não recomendamos o uso de máquinas virtuais, pois além do processo de virtualização deixar partes da instalação mais lentas, também pode afetar alguns procedimentos.
 
-### Preparando a máquina
+## Preparando a máquina
 A instalação pode ser feita tanto para simulação no Qemu, quanto para instalação direta em um raspberry pi
 >[!NOTE]
 >Alguns modelos de raspberry podem não ser compatíveis com o sistema operacional do OP-TEE. Para mais informações, consultar o [site oficial](https://optee.readthedocs.io/en/latest/building/devices/rpi3.html#what-versions-of-raspberry-pi-will-work).
 
-Antes de iniciar a instalação, é necessário instalar os seguintes pacotes:
-```ruby
+Antes de iniciar a instalação, é necessário atualizar os pacotes nativos do Ubuntu:
+```console
+sudo apt update
+sudo apt upgrade
+```
+Depois, instale os pré-requisitos:
+```console
 sudo apt install-y adb acpica-tools autoconf automake bc bison build-essential ccache cpio cscope curl device-tree-compiler e2tools\
 expect fastboot flex ftp-upload disk git libattr1-dev libcap-ng-dev libfdt-dev libftdi-dev libglib2.0-dev libgmp3-dev libhidapi-dev\
 libmpc-dev libncurses5-dev libpixman-1-dev libslirp-dev libssl-dev libtool libusb-1.0-0-dev make mtools netcat ninja-build\
 python3-cryptography python3-pip python3-pyelftools python3-serial python-is-python3 rsync swig unzip uuid-dev wget xdg-utils xterm\
 xz-utils zlib1g-dev curl
 ```
-A seguir, deve-se instalar o Google Repo:
-```ruby
+A seguir, deve-se instalar o Google Repo. O Repo será usado no lugar do Git por conta do melhor manuseio e atualização de diretórios, permitindo uma maior facilidade para trabalhar com os arquivos.
+```console
 sudo apt install repo
 ```
-Próximo passo é criar uma pasta para armazenar os arquivos do OP-TEE. A pasta pode ser criada no diretório de preferência do usuário, mas deve-se ter em mente a localização dela para passos futuros.
-Recomendamos a criação da pasta no diretório raiz do linux:
-```ruby
+## instalando o OP-TEE
+O primeiro passo é criar uma pasta para armazenar os arquivos do OP-TEE. A pasta pode ser criada no diretório de preferência do usuário, mas deve-se ter em mente o nome e a localização dela para passos futuros.
+Recomendamos a criação da pasta no diretório raiz do linux, identificada com o tipo da instalação (QEMU ou Raspberry Pi):
+```console
 mkdir optee     #O nome da pasta pode ser customizado pelo usuário
 cd optee 
 ```
 Atenção: Esse diretório só deve ser usado para uma das versões do OP-TEE. Caso queira usar ambas as duas, crie outra pasta separada da primeira.
 ### Instalação e emulação pelo QEMU
-A simulação do OP-TEE é muito útil, pois pode ser usada tanto para testes de instalação, quanto para testes de scripts e trusted applications. Para fazer essa simulação, deve-se primeiramente iniciar o repositório do OP-TEE baseado para o QEMU:
-```ruby
+1- A simulação do OP-TEE é muito útil, pois pode ser usada tanto para testes de instalação, quanto para testes de scripts e trusted applications. Para fazer essa simulação, deve-se primeiramente iniciar o repositório do OP-TEE baseado para o QEMU:
+```console
 repo init -u https://github.com/OP-TEE/manifest.git -m default.xml -b 3.19.0
 ```
-Ao executar este passo em uma máquina nova ou com o linux recém instalado, será necessário configurar o nome e e-mail de usuário do Github. Para isso, utilize o seguinte:
-```ruby
+2- Ao executar este passo em uma máquina nova ou com o linux recém instalado, será necessário configurar o nome e e-mail de usuário do Github. Para isso, utilize o seguinte:
+```console
 git config --global user.name "Seu nome"
 git config --global user.mail "SeuEmail@mail.com"
 ```
-Após a inicialização do repositório na pasta, basta sincronizar:
-```ruby
+3- Após a inicialização do repositório na pasta, basta sincronizar:
+```console
 repo sync --no-clone-bundle
 ```
-Terminada a sincronização, a simulação já pode ser iniciada com o comando `make run`. Três terminais serão abertos: Um para o mundo comum, um para o mundo seguro e um para controle da emulação. No terminal da emulação, digite `c` e a simulação irá iniciar. Para confirmar o funcionamento, pode-se fazer login como "root" e usar o comando `xtest`, que verifica se toda a instalação ocorreu como previsto.
+4- Terminada a sincronização, deve-se baixar as "Toolchains" com o seguinte comando:
+>[!NOTE]
+>É muito importante que haja uma conexão estável com a internet, pois esse procedimento pode levar algum tempo. Recomendamos que refaça este passo em caso de qualquer erro que venha a acontecer em passos futuros.
+```console
+cd build
+make toolchains
+```
+Terminando esse procedimento, a simulação já pode ser iniciada com o comando `make run`. Três terminais serão abertos: Um para o mundo comum, um para o mundo seguro e um para controle da emulação. No terminal da emulação, digite `c` e a simulação irá iniciar. Para confirmar o funcionamento, pode-se fazer login como "root" e usar o comando `xtest`, que verifica se toda a instalação ocorreu como previsto.
 
 ### Instalação para o Raspberry Pi
 O procedimento é similar ao da instalação para emulação, porém possui algumas diferenças nos passos e alguns procedimentos extras.
 
 Para começar, crie um outro repositório:
-```ruby
+```console
 mkdir optee_rasp
 cd optee_rasp
 ```
+Agora, inicie o Repo relacionado ao Raspberry Pi:
+```console
+repo init -u https://github.com/OP-TEE/manifest.git -m rpi3.xml -b 3.19.0
+```
+Após a sincronização, repita os passos 2 ao 4 mencionados anteriormente. Quando terminado, use o comando abaxo:
+```console
+make -j `nproc`
+```
+### Instalação na memória do Raspberry
+A seguir, iremos particionar o cartão SD para colocar nele os arquivos do OP-TEE. Para mais informações, use o comando `make img-help`. 
+>[!CAUTION]
+>Execute os passos abaixo com cautela, pois caso algo seja feito incorretamente, toda a instalação a partir daqui precisará ser re-feita
 
 
 
+# Blockchain e Smart Contracts
 
+Nós usamos o [Hyperledger Fabric 2.2 LTS](https://hyperledger-fabric.readthedocs.io/en/release-2.2/) como nossa plataforma Blockchain. Nós configuramos uma distribuição global que suporta a execução de chaincode.
 
+## A rede Blockchain customizada
 
-# braketester-smart-contract
+Se você não está acostumado com o Hyperledger Fabric, recomendamos fortemente este [tutorial](https://hyperledger-fabric.readthedocs.io/en/release-2.2/test_network.html). Ele ensina em detalhes a como criar uma rede Fabric de teste.
 
-We adopt [Hyperledger Fabric 2.2 LTS](https://hyperledger-fabric.readthedocs.io/en/release-2.2/) as our blockchain platform. We configure a globally distributed blockchain network that supports the execution of Golang chaincodes.
-
-## The customized blockchain network
-
-If you are not used to the Hyperledger Fabric, we strongly recommend this [tutorial](https://hyperledger-fabric.readthedocs.io/en/release-2.2/test_network.html). It teaches in detail how to create a test Fabric network.
-
-### 1. Prepare the host machine.
+### 1. Preparando a máquina.
 
 You need to install the **Hyperledger Fabric 2.2 LTS** basic software and [dependencies](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html). We try to make things simpler by providing a shell script that installs all these stuff in a clean **Ubuntu 20.04 LTS** system. If you are using this distribution, our script works for you. If you have a different distribution, you can still try the script or customize it to work in your system.
 
