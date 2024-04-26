@@ -36,8 +36,8 @@ Cartão SD Sandisk 16 GB
 
 # Blockchain e Smart Contracts
 
-A implementação da rede blockchain e do contrato inteligente referente à arquitetura segura de medição para o frenômetro estão  documentadas no seguinte link: www.d.co. Esta documentação serve como um guia para aplicação dos mecanismos propostos, visando a integridade e confiabilidade das medições realizadas.
+A implementação da rede blockchain e do contrato inteligente referente à arquitetura segura de medição para o frenômetro estão  documentadas no seguinte link: https://github.com/edugmac/DMS/blob/main/Blockchain/readme.md . Esta documentação serve como um guia para aplicação dos mecanismos propostos, visando a integridade e confiabilidade das medições realizadas.
 
 # OP-TEE para Raspberry Pi e Qemu
 
-A implementação envolvendo TEE está detalhada no seguinte link: www.e.co. Esse recurso permite a integração de TEE na arquitetura, que pode ser realizada em ambientes de simulação utilizando o Qemu ou através de um protótipo utilizando Raspberry Pi. Essas opções oferecem flexibilidade para desenvolvedores e pesquisadores explorarem e testarem a aplicação de TEE na arquitetura de medição segura tanto em cenários simulados, quanto em ambientes físicos.
+A implementação envolvendo TEE está detalhada no seguinte link: https://github.com/edugmac/DMS/blob/main/TEE/readme.md . Esse recurso permite a integração de TEE na arquitetura, que pode ser realizada em ambientes de simulação utilizando o Qemu ou através de um protótipo utilizando Raspberry Pi. Essas opções oferecem flexibilidade para desenvolvedores e pesquisadores explorarem e testarem a aplicação de TEE na arquitetura de medição segura tanto em cenários simulados, quanto em ambientes físicos.
