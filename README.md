@@ -11,15 +11,15 @@ Orientadores:
 * Wilson de Souza Melo Junior (wsjunior@inmetro.gov.br)
 * Igor Leandro Vieira (augetechrj@gmail.com)
 
-# Sobre o projeto
+### Sobre o projeto
 Desenvolvemos um sistema seguro para medir a capacidade de frenagem de veículos. Esse sistema visa garantir a integridade dos resultados de um tipo de DMS denominado frenômetro. A arquitura está dividida em três etapas de medição: sensoriamento, concretização da medição e armazenamento. Na primeira etapa os sinais da medição são criptografados em um kernel seguro no ambiente de execução confiável do processador (TEE, do inglês, Trust Enviroment Execution). A medição criptografada é enviada para uma rede blockchain, onde smart contracts realizam os cálculos necessários para obter o resultado de medição. Esse resultado é então armazenado no ledger do blockchain, não podendo ser alterada. A seguir é apresentada a implementação do ambiente seguro usando OP-TEE (tanto um protótipo com Raspberry Pi, como virtualização com Qemu). Na sequência, está descrita a implementação da rede blockchain em HyperLedger Fabric e do smart contract desenvolvido para concretizar as medições do frenômetro.
 
-# Publicações relacionadas
+### Publicações relacionadas
 As publicações a seguir estão relacionadas a este projeto.
 [Blockchain-based Architecture to Enhance Security in Distributed Measurement Systems] (10.1109/CSDE59766.2023.10487656)
 [Blockchain network to conformity assessment bodies] (https://metrologia2023.org.br/?page_id=6627)
 
-# Financiamento
+### Financiamento
 Este trabalho foi parcilamente financiado por pela Fundação Carlos Chagas Filho de Amparo à Pesquisa do Rio de Janeiro (FAPERJ), bolsas E-26/290.124/2021, E-26/205.266/2022, and E-26/260.179/2023 e pelo Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq), bolsa 151399/2023-9.
 
 # Especificações de hardware
