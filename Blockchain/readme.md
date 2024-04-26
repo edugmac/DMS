@@ -92,31 +92,31 @@ Você pode testar um chaincode usando o seguinte comando.
 ./start.sh testCC -c <channel-name> -ccn <chaincode name> -args <arguments>
 ```
 
-## Dealing with client applications
+## Lidando com aplicações clientes
 
-The client application is a set of Python 3 modules that use the blockchain network's chaincode services.
+A aplicação cliente é um grupo de modulos Python 3 que usa os serviços de chaincode da rede Blockchain.
 
-You need to install some dependencies and libraries before getting the clients running correctly. We described all the steps necessary to prepare your machine to do that.
+Você precisa instalar algumas dependências e bibliotecas antes de conseguir rodar os clientes corretamente. Nós descrevemos todos os passos necessários para preparar a sua maquina para fazer isso.
 
-### Get pip3
+### Instalar pip3
 
-Install the Python PIP3 using the following command:
+Instale o Python PIP3 usando o seguinte comando:
 
 ```console
 sudo apt install python3-pip
 ```
 
-### Get the Fabric Python SDK
+### Instale o Fabric Python SDK
 
-The [Fabric Python SDK](https://github.com/hyperledger/fabric-sdk-py) is not part of the Hyperledger Project. It is maintained by an independent community of users from Fabric. However, this SDK works fine, at least to the basic functionalities we need.
+O [Fabric Python SDK](https://github.com/hyperledger/fabric-sdk-py) não é parte do projeto Hyperledger. Ele é mantido por uma comunidade indepentente de usuários do Fabric. Porém, este SDK funciona perfeitamente para as nossas necessidades.
 
-You need to install the Python SDK dependencies first:
+Você precisa instalar as suas dependências antes:
 
 ```console
 sudo apt-get install python-dev python3-dev libssl-dev
 ```
 
-Now, install the Python SDK using *git*. Notice that the repository is cloned into the current path, so we recommend installing it in your $HOME directory. After cloning the repository, it is necessary to check out the tag associated with the version 1.0.
+Agora, instale o Python SDK usando o *git*. Note que o repositório é clonado no caminho atual, portanto, recomendamos instalar no seu diretório `$HOME`. Após clonar o repositório, é necessario checar a tag associada com a versão 1.0.
 
 ```console
 cd $HOME
@@ -126,77 +126,76 @@ git checkout tags/v1.0.0-beta
 sudo make install
 ```
 
-### Configure the .json network profile
-The Python SDK applications depend on a network profile encoded in a .json format. Since we have two independent organizations, the network profile changes accordingly to them. In this repository, we provide the [inmetro.br.json](nesa-cli/inmetro.br.json) file. The network profile keeps the necessary credentials to access the blockchain network. You must configure this file properly every time that you create new digital certificates in the MSP:
+### Configure o perfil .json da rede
+As aplicações do Python SDK dependem de um perfil da rede codificado em um formato .json. Como temos duas organizações independentes, o perfil da rede muda de acordo com elas. Neste repositório, nós disponibilizamos o arquivo [inmetro.br.json](nesa-cli/inmetro.br.json). O perfil da rede contém as credenciais necessarias para acessar a rede Blockchain. Você deve configurar este arquivo propriamente cada vez que quiser adicionar novos certificados digitais ao MSP:
 
-* Open the respective .json in a text editor;
-* Check for the entries called "tlsCACerts", "clientKey", "clientCert", "cert" and "private_key" on each organization. Notice that they point out to different files into the (./cripto-config) directory that corresponds to digital certificates and keys of each organization. The private key must correspond to the user who will submit the transactions (by default, we use Admin);
-* Check the MSP file structure in your deployment and verify the correct name of the files that contain the certificates or keys;
-* Modify the .json file with the correct name and path of each required file.
+* Abra o texto em um editor .json;
+* Cheque por entradas nomeadas "tlsCACerts", "clientKey", "clientCert", "cert" e "private_key" em cada organização. Note que elas apontam para diferentes arquivos no diretório (./cripto-config) que corresponde aos certificados digitais e chaves de cada organização. A chave privada deve corresponder com o usuário que submeter as transações (por padrão, usamos Admin);
+* Cheque a estrutura de arquivos MSP na sua instalação e verifique o nome correto dos arquivos que contém certificados ou chaves;
+* Modifique o arquivo .json com o nome e caminho correto para cada arquivo requerido.
 
-### The Client Application modules
+### Módulos da aplicação cliente
 
-The Client Application includes the following modules:
+A aplicação cliente contém os seguintes módulos:
 
-* [keygen-ecdsa.py](fabpki-cli/keygen-ecdsa.py): It is a simple Python script that generates a pair of ECDSA keys. These keys are necessary to run all the other modules.
-* [register-ecdsa.py](fabpki-cli/register-ecdsa.py): It invokes the *registerMeter* chaincode, which appends a new meter digital asset into the ledger. You must provide the respective ECDSA public key.
-* [verify-ecdsa.py](fabpki-cli/verify-ecdsa.py): It works as a client that verifies if a given digital signature corresponds to the meter's private key. The client must provide a piece of information and the respective digital signature. The client module will inform **True** for a legitimate signature and **False** in the opposite.
-* [Insert Measurement](nesa-cli/InsertbMeasurement): The folder InsertMeasurement contains the clients responsible for collecting data from a path, convert in json format and calling chaincode methods to insert this data into the blockchain.
-* [Query History](nesa-cli/countHistory.py): Count all transactions present in the ledger for an id.
-* [Get Consumption](nesa-cli/getConsumption.py): Get the data of a meter id.
-* [Mongo](nesa-cli/mongo.py): A client to acess directly the database of the blockchain.
-* [App](nesa-cli/app.py): An interface to acess the clients using your browser.
+* [keygen-ecdsa.py](fabpki-cli/keygen-ecdsa.py): É um simples script Python que gera um par de chaves ECDSA. Essas chaves são necessarias para executar todos os outros módulos.
+* [register-ecdsa.py](fabpki-cli/register-ecdsa.py): Invoca o chaincode *registerMeter*, que acrescenta um novo asset de medidor digital ao ledger. Você deve prover a chave ECSDA pública respectiva.
+* [verify-ecdsa.py](fabpki-cli/verify-ecdsa.py): Funciona como um cliente que verifica se uma dada assinatura digital corresponde com a chave privada do medidor. O cliente deve prover alguma informação e a assinatura digital respectiva. O modulo cliente vai informar **True** para uma assinatura digital legitima e **false** caso contrário. 
+* [Insert Measurement](nesa-cli/InsertbMeasurement): A pasta InsertMeasurement contém os clientes responsáveis por coletar dados de um path, convertido em formato json e chamar os métodos do chaincode para inserir esses dados na rede Blockchain.
+* [Query History](nesa-cli/countHistory.py): Conta todas as transações presentes no ledger para um ID.
+* [Get Consumption](nesa-cli/getConsumption.py): Pega os dados de um ID de um medidor.
+* [Mongo](nesa-cli/mongo.py): Um cliente para acessar diretamente a  banco de dados da rede Blockchain.
+* [App](nesa-cli/app.py): Uma interface para acessar os clientes usando o seu navegador.
 
-## Using the Hyperledger Explorer
+## Usando o Hyperledger Explorer
 
-The [Hyperledger Explorer](https://www.hyperledger.org/projects/explorer) is a web tool that helps to monitor the blockchain network with a friendly interface. Our repository includes the extensions to use Explorer together with our experiment. We take the Explorer container-based distribution, that consists of two Docker images:
-* **explorer**: a web server that delivers the application.
-* **explorer-db**: a PostgreSQL database server that is required to run Explorer.
+O [Hyperledger Explorer](https://www.hyperledger.org/projects/explorer) é uma ferramenta web que ajuda a monitorar a rede com uma interface mais amigável. Nosso repositório inclui as extensões para usar o Explorer junto do nosso experimento. Nós usamos a distribuição baseada em contêineres do Explorer, que consite em duas imagens Docker:
+* **explorer**: Um web server que entrega a aplicação.
+* **explorer-db**: Um servidor banco de dados PostrgreSQL que é necessário para rodar o Explorer a PostgreSQL.
 
-The following steps describe how to start and stop Explorer. Firstly, make sure that the blockchain network is up and that you executed the previous steps related to install and instantiate the *braketester* chaincode. You can check these points with the following command:
+Os passos seguintes descrevem como iniciar e parar o explorer. Primeiramente, confirme que a rede blockchain está ativa e que você executou os passos anteriores relacionados a instalar e instânciar o chaincode *braketester*. Você pode checar estes pontos com o seguinte comando:
 
 ```console
 docker ps
 ```
-The Explorer is also a blockchain client. Before continuing, you must fix the Explorer connection profile, just like you did previously to the Python client. Again, we have this configuration in the [inmetro.br.json](explorer/inmetro.br.json) file. Notice that this file are very similar to our Python client connection profile. The procedure to fix them is also the same, with the difference that the Explorer **must** use the Admin credentials. Find the entries called "tlsCACerts", "clientKey", "clientCert", "signedCert" and "adminPrivateKey" of each organization. Replace them with the respective filenames in your MSP configuration, when necessary. **Do not change the files path** because it already points to the container's internal path that the Explorer knows (i.e., the path "/tmp/crypto" maps your local "./crypto-config" folder). Finally, edit the file [config.json](explorer/config.json) to point out for your organization connection profile (PTB or Inmetro).
+O explorer também é um cliente blockchain. Antes de continuar, você deve consertar o perfil de conexão do Explorer, assim como você fez anteriormente com o cliente Python. Novamente, nós temos esta configuração no arquivo [inmetro.br.json](explorer/inmetro.br.json). Note que este arquivo é muito similar com o nosso perfil de conexão do cliente Python. O procedimento para consertá-los também é o mesmo, com a diferença de que o explorer **deve** usar as credenciais de Admin. Encontre as entradas nomeadas "tlsCACerts", "clientKey", "clientCert", "signedCert" e "adminPrivateKey" de cada organização. Troque elas com os nomes respectivos em sua configuração MSP, quando necessário. **Não mude o caminho dos arquivos** porque ele já aponta para o caminho interno dos contâineres que o Explorer conhece (por exemplo, o caminho "/tmp/crypto" a sua pasta local "./crypto-config"). Finalmente, edite o arquivo [config.json](explorer/config.json) para apontar para o seu perfil de conexão da organização (PTB ou Inmetro).
 
-Now, access the [explorer](explorer) folder and start the Hyperledger Explorer containers.
-```console
+Agora, acesse a pasta [explorer](explorer) e inicie os contâineres do Hyperledger Explorer.
+```console 
 cd explorer
 docker-compose -f explorer-inmetro.yaml up -d
 ```
 
-The first execution will pulldown the Docker images, and also create the PostgresSQL database. These procedures can require some time to execute. Wait 30 seconds and open the following local address in a web browser: [http://localhost:8080](http://localhost:8080). You must see the Hyperledger Explorer login screen.
+A primeira execução vai baixar as imagens Docker e criar o banco de dados PostgresSQL. Esses procedimentos podem necessitar de algum tempo para executar. Espere 30 segundos e abra o seguinte endereço local em um navegador web: [http://localhost:8080](http://localhost:8080). Você deve agora ver a tela de login do Hyperledger Explorer.
 
 * **login**: exploreradmin
 * **password**: exploreradminpw
 
-If you need to stop or shut down the Hyperledger Explore, proceed with the respective *docker-compose* commands, using *stop* to suspend the container's execution and *down* to remove the containers' instances. Here is an example:
+Se você precisa desligar ou parar o Hyperledger Explorer, prossiga com os seguintes comandos *docker-compose*, usando *stop* para suspender a execução dos contâineres e *down* para remover as instâncias deles. Aqui está um exemplo:
 ```console
 docker-compose -f explorer-ptb.yaml down
 ```
 
-Eventually, you will need to remove the database volumes associated with the Hyperledger Explorer physically. You can do that by executing the following commands:
+Eventualmente, você irá necessitar de remover os volumes do banco de dados associados com o Hyperledger Fabric físicamente. Você pode fazer isso executando os seguintes comandos:
 ```console
 docker volume prune
 docker volume rm explorer_pgdata explorer_walletstore
 ```
 
-### Issues
+### Problemas
 
-If you have any problem trying to bring up the network, creating the channel or deploying the chaincode, execute this steps:
+Se você tiver qualquer problema tentando subir a rede, criando os channels ou implantando o chaincode, execute os seguintes passos:
 
-First, bring down the network using the following command:
+Primeiro, derrube a rede usando o seguinte comando:
 
 ```console
 ./start.sh down
 ```
 
-Now, use this to remove all volumes:
+Agora, use isso para remover todos os volumes:
 
 ```console
 docker volume rm $(docker volume ls)
 ```
 
-This will solve most of your problems, so you can bring up the network again without any error. If that doesn't work, try praying. xD
-
+Isso resolverá a maioria dos seus problemas para que você possa subir a rede novamente sem nenhum erro.
