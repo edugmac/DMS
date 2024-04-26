@@ -38,7 +38,7 @@ OP-TEE é um "Trusted Execution Environment" (TEE) focado em garantir segurança
 >[!TIP]
 >Recomendamos utilizar um computador com um linux instalado, de preferência o Ubuntu. Não recomendamos o uso de máquinas virtuais, pois além do processo de virtualização deixar partes da instalação mais lentas, também pode afetar alguns procedimentos.
 
-## Preparando a máquina
+### Preparando a máquina
 A instalação pode ser feita tanto para simulação no Qemu, quanto para instalação direta em um raspberry pi
 >[!NOTE]
 >Alguns modelos de raspberry podem não ser compatíveis com o sistema operacional do OP-TEE. Para mais informações, consultar o [site oficial](https://optee.readthedocs.io/en/latest/building/devices/rpi3.html#what-versions-of-raspberry-pi-will-work).
@@ -62,7 +62,7 @@ mkdir optee     #O nome da pasta pode ser customizado pelo usuário
 cd optee 
 ```
 Atenção: Esse diretório só deve ser usado para uma das versões do OP-TEE. Caso queira usar ambas as duas, crie outra pasta separada da primeira.
-## Instalação e emulação pelo QEMU
+### Instalação e emulação pelo QEMU
 A simulação do OP-TEE é muito útil, pois pode ser usada tanto para testes de instalação, quanto para testes de scripts e trusted applications. Para fazer essa simulação, deve-se primeiramente iniciar o repositório do OP-TEE baseado para o QEMU:
 ```ruby
 repo init -u https://github.com/OP-TEE/manifest.git -m default.xml -b 3.19.0
@@ -78,7 +78,7 @@ repo sync --no-clone-bundle
 ```
 Terminada a sincronização, a simulação já pode ser iniciada com o comando `make run`. Três terminais serão abertos: Um para o mundo comum, um para o mundo seguro e um para controle da emulação. No terminal da emulação, digite `c` e a simulação irá iniciar. Para confirmar o funcionamento, pode-se fazer login como "root" e usar o comando `xtest`, que verifica se toda a instalação ocorreu como previsto.
 
-## Instalação para o Raspberry Pi
+### Instalação para o Raspberry Pi
 O procedimento é similar ao da instalação para emulação, porém possui algumas diferenças nos passos e alguns procedimentos extras.
 
 Para começar, crie um outro repositório:
