@@ -8,7 +8,7 @@ Se você não está acostumado com o Hyperledger Fabric, recomendamos fortemente
 
 ### 1. Preparando a máquina.
 
-Para realizar a instalação do Hyperledger Fabric 2.2 LTS e suas [dependências](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html, é necessário seguir alguns passos específicos. Com o objetivo de simplificar o processo, disponibilizamos um script que automatiza a instalação de todos os componentes necessários em um sistema **Ubuntu 20.04 LTS** limpo. Caso você esteja utilizando essa distribuição, nosso script é adequado para o seu ambiente. Se estiver utilizando uma distribuição diferente, ainda é possível tentar executar o script ou personalizá-lo para funcionar em seu sistema.
+Para realizar a instalação do Hyperledger Fabric 2.2 LTS e suas [dependências](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html), é necessário seguir alguns passos específicos. Com o objetivo de simplificar o processo, disponibilizamos um script que automatiza a instalação de todos os componentes necessários em um sistema **Ubuntu 20.04 LTS** limpo. Caso você esteja utilizando essa distribuição, nosso script é adequado para o seu ambiente. Se estiver utilizando uma distribuição diferente, ainda é possível tentar executar o script ou personalizá-lo para funcionar em seu sistema.
 
 Para iniciar a instalação, é necessário executar o script de instalação localizado na pasta de pré-requisitos em ambos os hosts. Você deve executar o seguinte comando no terminal do Linux:
 
