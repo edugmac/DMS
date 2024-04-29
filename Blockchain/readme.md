@@ -1,6 +1,6 @@
 # Blockchain e Contratos Inteligentes
 
-Nós usamos o [Hyperledger Fabric 2.2 LTS](https://hyperledger-fabric.readthedocs.io/en/release-2.2/) como nossa plataforma Blockchain. Nós configuramos uma distribuição global que suporta a execução de chaincode.
+Usamos o [Hyperledger Fabric 2.2 LTS](https://hyperledger-fabric.readthedocs.io/en/release-2.2/) como nossa plataforma Blockchain. Configuramos uma distribuição global que suporta a execução de chaincode.
 
 ## A rede Blockchain customizada
 
@@ -10,7 +10,7 @@ Se você não está acostumado com o Hyperledger Fabric, recomendamos fortemente
 
 Para realizar a instalação do Hyperledger Fabric 2.2 LTS e suas [dependências](https://hyperledger-fabric.readthedocs.io/en/latest/prereqs.html), é necessário seguir alguns passos específicos. Com o objetivo de simplificar o processo, disponibilizamos um script que automatiza a instalação de todos os componentes necessários em um sistema **Ubuntu 20.04 LTS** limpo. Caso você esteja utilizando essa distribuição, nosso script é adequado para o seu ambiente. Se estiver utilizando uma distribuição diferente, ainda é possível tentar executar o script ou personalizá-lo para funcionar em seu sistema.
 
-Para iniciar a instalação, é necessário executar o script de instalação localizado na pasta de pré-requisitos em ambos os hosts. Você deve executar o seguinte comando no terminal do Linux:
+Para iniciar a instalação, é necessário executar o script de instalação localizado na pasta de pré-requisitos. Você deve executar o seguinte comando no terminal do Linux:
 
 ```console
 ./prerequirements/installFabric.sh
@@ -35,7 +35,7 @@ Este script utiliza os arquivos **configtx.yaml** e **crypto-config-nmi.yaml** p
 Utilizamos a ferramenta **docker-compose** para gerenciar os contêineres do docker em nossa rede. Essa ferramenta lê os arquivos peer-*.yaml e cria/inicia/interrompe todos os contêineres ou um grupo específico de contêineres. Você pode encontrar mais detalhes na Documentação do [Docker Compose Documents](https://docs.docker.com/compose/).
 
 
-Em ambos os hosts, você deve utilizar o seguinte comando para iniciar a rede:
+Você deve utilizar o seguinte comando para iniciar a rede:
 
 ```console
 ./start.sh up
