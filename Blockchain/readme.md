@@ -49,7 +49,7 @@ A mesma ferramenta pode ser usada para parar os contêineres, caso seja necessá
 
 ### 4. Criando o channel no Fabric e reunindo os peers
 
-O próximo passo consiste em criar um channel (na prática, o ledger que reúne os peers) e unir todos os peers ativos a ele. É importante lembrar que criamos um canal apenas uma vez, no **host_aws**. Portanto, a primeira organização a iniciar seus pares *DEVE* criar o canal. As organizações subsequentes apenas buscarão por um canal existente e se juntarão a ele. O script [start.sh](start.sh) implementa ambas as situações.
+O próximo passo consiste em criar um channel (na prática, o ledger que reúne os peers) e unir todos os peers ativos a ele. É importante lembrar que criamos um canal apenas uma vez, no **OneHost**. Portanto, a primeira organização a iniciar seus pares *DEVE* criar o canal. As organizações subsequentes apenas buscarão por um canal existente e se juntarão a ele. O script [start.sh](start.sh) implementa ambas as situações.
 
 ```console
 ./start.sh createChannel
@@ -81,8 +81,6 @@ Um exemplo desse comando é:
 ```
 
 Esse comando fará tudo o que você precisa para invocar um chaincode.
-
-obs: Implante primeiro o chaincode em **host2_aws** e depois em **host_aws**.
 
 ### 6. Testando um chaincode
 
