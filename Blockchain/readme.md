@@ -125,7 +125,7 @@ sudo make install
 ```
 
 ### Configure o perfil .json da rede
-As aplicações do Python SDK dependem de um perfil da rede codificado em um formato .json. Como temos duas organizações independentes, o perfil da rede muda de acordo com elas. Neste repositório, nós disponibilizamos o arquivo [inmetro.br.json](nesa-cli/inmetro.br.json). O perfil da rede contém as credenciais necessarias para acessar a rede Blockchain. Você deve configurar este arquivo propriamente cada vez que quiser adicionar novos certificados digitais ao MSP:
+As aplicações do Python SDK dependem de um perfil da rede codificado em um formato .json. Como temos duas organizações independentes, o perfil da rede muda de acordo com elas. Neste repositório, nós disponibilizamos o arquivo [inmetro.br.json](braketester-cli/inmetro.br.json). O perfil da rede contém as credenciais necessarias para acessar a rede Blockchain. Você deve configurar este arquivo propriamente cada vez que quiser adicionar novos certificados digitais ao MSP:
 
 * Abra o texto em um editor .json;
 * Cheque por entradas nomeadas "tlsCACerts", "clientKey", "clientCert", "cert" e "private_key" em cada organização. Note que elas apontam para diferentes arquivos no diretório (./cripto-config) que corresponde aos certificados digitais e chaves de cada organização. A chave privada deve corresponder com o usuário que submeter as transações (por padrão, usamos Admin);
@@ -139,11 +139,11 @@ A aplicação cliente contém os seguintes módulos:
 * [keygen-ecdsa.py](fabpki-cli/keygen-ecdsa.py): É um simples script Python que gera um par de chaves ECDSA. Essas chaves são necessarias para executar todos os outros módulos.
 * [register-ecdsa.py](fabpki-cli/register-ecdsa.py): Invoca o chaincode *registerMeter*, que acrescenta um novo asset de medidor digital ao ledger. Você deve prover a chave ECSDA pública respectiva.
 * [verify-ecdsa.py](fabpki-cli/verify-ecdsa.py): Funciona como um cliente que verifica se uma dada assinatura digital corresponde com a chave privada do medidor. O cliente deve prover alguma informação e a assinatura digital respectiva. O modulo cliente vai informar **True** para uma assinatura digital legitima e **false** caso contrário. 
-* [Insert Measurement](nesa-cli/InsertbMeasurement): A pasta InsertMeasurement contém os clientes responsáveis por coletar dados de um path, convertido em formato json e chamar os métodos do chaincode para inserir esses dados na rede Blockchain.
-* [Query History](nesa-cli/countHistory.py): Conta todas as transações presentes no ledger para um ID.
-* [Get Consumption](nesa-cli/getConsumption.py): Pega os dados de um ID de um medidor.
-* [Mongo](nesa-cli/mongo.py): Um cliente para acessar diretamente a  banco de dados da rede Blockchain.
-* [App](nesa-cli/app.py): Uma interface para acessar os clientes usando o seu navegador.
+* [Insert Measurement](braketester-cli/InsertbMeasurement): A pasta InsertMeasurement contém os clientes responsáveis por coletar dados de um path, convertido em formato json e chamar os métodos do chaincode para inserir esses dados na rede Blockchain.
+* [Query History](braketester-cli/countHistory.py): Conta todas as transações presentes no ledger para um ID.
+* [Get Consumption](braketester-cli/getConsumption.py): Pega os dados de um ID de um medidor.
+* [Mongo](braketester-cli/mongo.py): Um cliente para acessar diretamente a  banco de dados da rede Blockchain.
+* [App](braketester-cli/app.py): Uma interface para acessar os clientes usando o seu navegador.
 
 ## Usando o Hyperledger Explorer
 
@@ -156,7 +156,7 @@ Os passos seguintes descrevem como iniciar e parar o explorer. Primeiramente, co
 ```console
 docker ps
 ```
-O explorer também é um cliente blockchain. Antes de continuar, você deve consertar o perfil de conexão do Explorer, assim como você fez anteriormente com o cliente Python. Novamente, nós temos esta configuração no arquivo [inmetro.br.json](explorer/inmetro.br.json). Note que este arquivo é muito similar com o nosso perfil de conexão do cliente Python. O procedimento para consertá-los também é o mesmo, com a diferença de que o explorer **deve** usar as credenciais de Admin. Encontre as entradas nomeadas "tlsCACerts", "clientKey", "clientCert", "signedCert" e "adminPrivateKey" de cada organização. Troque elas com os nomes respectivos em sua configuração MSP, quando necessário. **Não mude o caminho dos arquivos** porque ele já aponta para o caminho interno dos contâineres que o Explorer conhece (por exemplo, o caminho "/tmp/crypto" a sua pasta local "./crypto-config"). Finalmente, edite o arquivo [config.json](explorer/config.json) para apontar para o seu perfil de conexão da organização (PTB ou Inmetro).
+O explorer também é um cliente blockchain. Antes de continuar, você deve consertar o perfil de conexão do Explorer, assim como você fez anteriormente com o cliente Python. Novamente, nós temos esta configuração no arquivo [inmetro.br.json](explorer/inmetro.br.json). Note que este arquivo é muito similar com o nosso perfil de conexão do cliente Python. O procedimento para consertá-los também é o mesmo, com a diferença de que o explorer **deve** usar as credenciais de Admin. Encontre as entradas nomeadas "tlsCACerts", "clientKey", "clientCert", "signedCert" e "adminPrivateKey" de cada organização. Troque elas com os nomes respectivos em sua configuração MSP, quando necessário. **Não mude o caminho dos arquivos** porque ele já aponta para o caminho interno dos contâineres que o Explorer conhece (por exemplo, o caminho "/tmp/crypto" a sua pasta local "./crypto-config"). Finalmente, edite o arquivo [config.json](explorer/config.json) para apontar para o seu perfil de conexão da organização (Braketester ou Inmetro).
 
 Agora, acesse a pasta [explorer](explorer) e inicie os contâineres do Hyperledger Explorer.
 ```console 
