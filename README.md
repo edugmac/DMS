@@ -17,7 +17,7 @@ Desenvolvemos um sistema seguro para medir a capacidade de frenagem de veículos
 ### Publicações relacionadas
 As publicações a seguir estão relacionadas a este projeto.
 
-* [A. Martins, E. V., Machado, E. G., B. Gomes, R. T., & Melo Jr., W. S. (2023). Blockchain-based Architecture to Enhance Security in Distributed Measurement Systems. 2023 IEEE Asia-Pacific Conference on Computer Science and Data Engineering (CSDE), 1–4.](10.1109/CSDE59766.2023.10487656)
+* [A. Martins, E. V., Machado, E. G., B. Gomes, R. T., & Melo Jr., W. S. (2023). Blockchain-based Architecture to Enhance Security in Distributed Measurement Systems. 2023 IEEE Asia-Pacific Conference on Computer Science and Data Engineering (CSDE), 1–4.](https://ieeexplore.ieee.org/abstract/document/10487656)
 * [Machado, E. G., Gomes, R. T. R., Martins, E. V. A., Vieira, I. L., Madruga, E. L., & Melo, W. S. (2023). Blockchain network to conformity assessment bodies. Metrologia 2023: Congresso Brasileiro de Metrologia.](https://metrologia2023.org.br/?page_id=6627)
 
 ### Financiamento
