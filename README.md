@@ -37,7 +37,7 @@ Cartão SD Sandisk 16 GB
 # Instalação
 
 Clone esse repositório num diretório de sua preferência. As instalações para a blockchain e para o TEE estarão separadas em suas pastas:
-```
+```console
 git clone https://github.com/edugmac/DMS
 ```
 
