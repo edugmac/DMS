@@ -34,6 +34,13 @@ Raspberry Pi 3 B+<br>
 Processador com arquitetura ARMv8<br>
 Cartão SD Sandisk 16 GB
 
+# Instalação
+
+Clone esse repositório num diretório de sua preferência. As instalações para a blockchain e para o TEE estarão separadas em suas pastas:
+```
+git clone https://github.com/edugmac/DMS
+```
+
 # Blockchain e Smart Contracts
 
 A implementação da rede blockchain e do contrato inteligente referente à arquitetura segura de medição para o frenômetro estão  documentadas no seguinte link: https://github.com/edugmac/DMS/blob/main/Blockchain/readme.md . Esta documentação serve como um guia para aplicação dos mecanismos propostos, visando a integridade e confiabilidade das medições realizadas.
