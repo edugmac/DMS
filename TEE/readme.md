@@ -116,12 +116,25 @@ run the following as root
 >[!TIP]
 >Execute o comando no seu dispositivo, pois ele modifica automaticamente alguns comandos relacionados à localização da pasta de instalação do OP-TEE, facilitando o processo.
 
-Plugue o cartão SD no seu dispositivo. Idealmente, formate ele antes de executar os próximos passos.</br>
-Primeiramente, identifique o nome do cartão SD. Você pode fazer isso usando o comando `lsblk`. Isso exibirá os dispositivos de bloco plugados na máquina. Procure pelo dispositivo que corresponde à memória do seu cartão de memória. O nome deve ser algo como `sdx` ou `mmcblkx`, substituindo o `x` por algum número.
+Plugue o cartão SD no seu dispositivo. Idealmente, formate ele antes de executar os próximos passos.
+
+Primeiramente, identifique o nome do cartão SD. Você pode fazer isso usando o comando `lsblk`. Isso exibirá os dispositivos de bloco plugados na máquina. Procure pelo dispositivo que corresponde à memória do seu cartão de memória. O nome deve ser algo como `sdx` ou `mmcblkx`, substituindo o `x` por algum número. Observe o exemplo abaixo:
+```terminal
+NAME        MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda           8:0    0  500G  0 disk
+├─sda1        8:1    0  499G  0 part /
+└─sda2        8:2    0    1G  0 part [SWAP]
+mmcblk0     179:0    0 15.7G  0 disk
+├─mmcblk0p1 179:1    0  100M  0 part
+└─mmcblk0p2 179:2    0 15.6G  0 part
+```
+O dispositivo `sda` representa, neste caso, a memoria interna do dispositivo, enquanto o cartao de memoria está sendo apresentado como `mmcblk0`. Uma dica para este passo é atentar-se à quantidade de memória do dispositivo.
 
 >[!CAUTION]
 >Execute os passos abaixo com cautela, pois caso algo seja feito incorretamente, toda a instalação a partir daqui precisará ser re-feita.
 
-Repita o processo de particionamento que está indicado no img-help. Em todos os comandos, troque o nome `sdx` pelo nome do cartão SD que foi identificado. Para executá-los, inicie o modo root no terminal, digitando `sudo su`.</br>
-Após particionar o cartão SD, os próximos passos são simples, necessitando apenas repetir os comandos mencionados no img-help. Como mencionado anteriormente, ele modificará os comandos para serem compativeis com a instalação do OP-TEE no seu sistema, necessitando alterar apenas o nome do cartão SD nos comandos correspondentes.</br>
+Repita o processo de particionamento que está indicado no img-help. Em todos os comandos, troque o nome `sdx` pelo nome do cartão SD que foi identificado. Para executá-los, inicie o modo root no terminal, digitando `sudo su`.
+
+Após particionar o cartão SD, os próximos passos são simples, necessitando apenas repetir os comandos mencionados no img-help. Como mencionado anteriormente, ele modificará os comandos para serem compativeis com a instalação do OP-TEE no seu sistema, necessitando alterar apenas o nome do cartão SD nos comandos correspondentes.
+
 Por fim, remova o cartão do computador e plugue no Raspberry Pi. Será necessário conectar um monitor por um cabo HDMI, a fonte e um teclado para poder operar o dispositivo. Para fins de teste, excecute o comando `xtest` para verificar se toda a instalação foi feita corretamente.
