@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir logfiles
 TIMESTAMP=$(date +"%d%m%Y_%H%M%S")
 exec 3>&1 1>"logfiles/logfile_${TIMESTAMP}.log" 2>&1
 set -x
