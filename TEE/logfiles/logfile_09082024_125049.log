@@ -1,0 +1,8 @@
++ date -Is
+2024-08-09T12:50:49-03:00
++ echo 'Iniciando instalação da TA'
++ echo 'Aviso: A instalação automática somente funcionará caso o diretório de instalação'
++ echo 'seja igual ao do readme. Caso a instalação tenha sido feita num diretório diferente,'
++ echo 'o processo terá de ser feito manualmente.'
++ echo 'Deseja continuar com a instalação? (s/n): '
++ read resposta
